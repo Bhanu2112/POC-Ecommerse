@@ -1,0 +1,17 @@
+package com.cart.api.entity;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+
+public class Cart {
+	
+	private Long id;
+	private Long userId;
+	
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<CartItem> cartItems;
+ 
+}

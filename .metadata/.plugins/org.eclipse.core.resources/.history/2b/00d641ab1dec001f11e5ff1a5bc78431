@@ -1,0 +1,5 @@
+package com.login.service.poc.controller;
+
+public class LoginController {
+
+}

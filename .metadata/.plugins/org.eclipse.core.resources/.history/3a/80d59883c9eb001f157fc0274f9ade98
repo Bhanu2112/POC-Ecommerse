@@ -1,0 +1,47 @@
+package com.auth.poc.config;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import com.auth.poc.dto.UserDTO;
+
+@Service
+public class CustomUserDetails implements UserDetails {
+	
+	
+	private UserDTO user;
+
+	public CustomUserDetails(UserDTO user) {
+		this.user = user;
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		
+		System.out.println("--------");
+		System.out.println(user);
+		return Stream.of(user.getRole())
+				.map(x -> new SimpleGrantedAuthority("ROLE_" + x.name()))
+                .collect(Collectors.toList());
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return user.getPassword();
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return user.getUsername();
+	}
+
+}

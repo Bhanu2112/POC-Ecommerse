@@ -1,0 +1,8 @@
+package com.auth.poc.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name="register-service")
+public interface UserServiceClient {
+
+}

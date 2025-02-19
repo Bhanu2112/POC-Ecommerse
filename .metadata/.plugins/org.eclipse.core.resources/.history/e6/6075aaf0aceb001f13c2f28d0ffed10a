@@ -1,0 +1,20 @@
+package com.auth.poc.jwt;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+
+import com.auth.poc.client.UserServiceClient;
+
+public class AuthService {
+	
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private UserServiceClient userServiceClient;
+	
+	@Autowired
+	private JwtService jwtService;
+
+}

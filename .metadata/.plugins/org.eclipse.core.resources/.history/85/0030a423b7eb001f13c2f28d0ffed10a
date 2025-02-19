@@ -1,0 +1,41 @@
+package com.auth.poc.jwt;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+
+import com.auth.poc.client.UserServiceClient;
+import com.auth.poc.dto.TokenDTO;
+import com.auth.poc.exception.WrongCredentialsException;
+import com.auth.poc.request.LoginRequest;
+
+public class AuthService {
+	
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private UserServiceClient userServiceClient;
+	
+	@Autowired
+	private JwtService jwtService;
+	
+	
+	
+	public TokenDTO login(LoginRequest request) {
+		Authentication authentication = authenticationManager.
+				authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		
+		if(authentication.isAuthenticated()) {
+			TokenDTO tokenDTO = new TokenDTO();
+			tokenDTO.setToken(jwtService.generateToken(request.getUsername()));
+			return tokenDTO;
+		}else {
+			throw new WrongCredentialsException("Wrong credentials");
+		}
+			
+	}
+
+}

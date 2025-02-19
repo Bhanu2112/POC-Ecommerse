@@ -1,0 +1,37 @@
+package com.cart.api.aop;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+@Aspect
+public class CartServiceAOP {
+
+	@Pointcut(value = "execution(* com.cart.api.service.CartService.*(..))")
+	private void printLogs() {
+	}
+	 @Around("printLogs()") // Adjust package path
+	    public Object logsAroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+	        long startTime = System.currentTimeMillis();
+
+	        // Logging method name and parameters
+	        String methodName = joinPoint.getSignature().getName();
+	        Object[] methodArgs = joinPoint.getArgs();
+	        System.out.println("🛒 [Cart Service] Entering method: " + methodName + " | Args: " + java.util.Arrays.toString(methodArgs));
+
+	        Object result;
+	        try {
+	            result = joinPoint.proceed(); // Proceed with method execution
+	        } catch (Exception e) {
+	            System.err.println("❌ [Cart Service] Exception in method: " + methodName + " | Error: " + e.getMessage());
+	            throw e;
+	        }
+
+	        long endTime = System.currentTimeMillis();
+	        System.out.println("✅ [Cart Service] Exiting method: " + methodName + " | Execution Time: " + (endTime - startTime) + "ms | Response: " + result);
+
+	        return result;
+	    }
+
+}

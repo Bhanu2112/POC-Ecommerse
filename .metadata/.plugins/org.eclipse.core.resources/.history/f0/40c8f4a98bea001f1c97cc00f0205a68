@@ -1,0 +1,5 @@
+package com.poc.product.service;
+
+public class ProductService {
+
+}

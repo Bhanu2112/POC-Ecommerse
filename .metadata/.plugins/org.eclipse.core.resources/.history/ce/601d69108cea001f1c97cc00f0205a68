@@ -1,0 +1,5 @@
+package com.poc.product.controller;
+
+public class ProductController {
+
+}

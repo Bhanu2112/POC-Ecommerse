@@ -1,0 +1,53 @@
+package com.poc.product.aop;
+
+import java.util.Arrays;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class ProductControllerAOp {
+
+	
+
+	@Pointcut("execution(* com.poc.product.controller.ProductController.*(..))")
+    public void controllerMethods() {}
+
+	
+	
+	@Around("controllerMethods()")
+	public Object logControllerMethods(ProceedingJoinPoint joinPoint) throws Throwable {
+		long startTime = System.currentTimeMillis();
+
+		// Logging method entry
+		String methodName = joinPoint.getSignature().getName();
+		Object[] args = joinPoint.getArgs();
+		System.out.println("[Product Controller] Entering: " + methodName + " | Args: " + Arrays.toString(args));
+
+		Object result;
+		try {
+			result = joinPoint.proceed(); // Proceed with the method execution
+		} catch (Exception e) {
+			System.err.println("[Product Controller] Exception in: " + methodName + " | Error: " + e.getMessage());
+			throw e; // Re-throw the exception after logging
+		}
+
+		long endTime = System.currentTimeMillis();
+		System.out.println("[Product Controller] Exiting: " + methodName + " | Execution Time: " + (endTime - startTime)
+				+ "ms | Response: " + result);
+
+		return result;
+	}
+	
+	@AfterReturning(value = "controllerMethods()", returning = "result")
+	public void logsAfterReturningDisplay(JoinPoint joinPoint, Object result) {
+		String methodName = joinPoint.getSignature().getName();
+		System.out.println(" [Product Controller] Successfully executed: " + methodName + " | Returned: " + result);
+	}
+}

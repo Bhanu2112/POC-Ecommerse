@@ -1,0 +1,18 @@
+package com.cart.api.aop;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+@Aspect
+public class CartServiceAOP {
+	
+	
+	@Pointcut(
+		    value
+		    = "execution(* com.cart.api.service.CartService.*(..))")
+		private void
+		printLogs()
+		{
+		}
+
+}

@@ -1,0 +1,27 @@
+package com.auth.poc.dto;
+
+import java.util.List;
+
+import com.auth.poc.enums.Role;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.OneToMany;
+
+public class UserDTO {
+
+	
+	private Long id;
+
+	private String username;
+	private String email;
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	private List<AddressDTO> address;
+}

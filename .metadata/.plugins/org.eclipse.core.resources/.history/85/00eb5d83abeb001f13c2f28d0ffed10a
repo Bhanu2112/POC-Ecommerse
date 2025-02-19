@@ -1,0 +1,5 @@
+package com.auth.poc.jwt;
+
+public class JwtService {
+
+}

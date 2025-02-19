@@ -1,0 +1,5 @@
+package com.auth.poc.client;
+
+public class UserServiceClient {
+
+}

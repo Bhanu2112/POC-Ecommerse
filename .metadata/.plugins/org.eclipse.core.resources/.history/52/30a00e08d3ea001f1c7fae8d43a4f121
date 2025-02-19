@@ -1,0 +1,10 @@
+package com.cart.api.config;
+
+public class AssemblyAiConfig {
+
+//	public AssemblyAI assemblyAiClient() {
+//		
+//	}
+	
+
+}

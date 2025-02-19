@@ -1,0 +1,5 @@
+package com.poc.product.jwt;
+
+public class JwtAuthenticationFilter {
+
+}

@@ -1,0 +1,5 @@
+package com.register.service.repository;
+
+public class UserRepository {
+
+}

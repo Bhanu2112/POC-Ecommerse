@@ -1,0 +1,5 @@
+package com.gateway.poc.filter;
+
+public class JwtAuthenticationFilter {
+
+}

@@ -1,0 +1,27 @@
+package com.auth.poc.dto;
+
+import java.util.List;
+
+import com.auth.poc.enums.Role;
+
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
+
+public class UserDTO {
+
+	
+	private Long id;
+
+	private String username;
+	private String email;
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	
+	
+	private List<AddressDTO> address;
+}

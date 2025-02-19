@@ -1,0 +1,13 @@
+package com.auth.poc.config;
+
+import org.springframework.context.annotation.Configuration;
+
+import feign.codec.ErrorDecoder;
+
+@Configuration
+public class FeignConfig {
+	
+	
+	
+
+}

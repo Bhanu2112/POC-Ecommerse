@@ -1,0 +1,105 @@
+package com.cart.api.aop;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class CartServiceAOP {
+
+//	@Pointcut(value = "execution(* com.cart.api.service.CartService.*(..))")
+//	private void printLogs() {
+//	}
+//	
+//	
+//	@Before("execution(* com.cart.api.controller.*.*(..)")
+//	public void getCartAOP() {
+//		System.out.println("internallly....");
+//	}
+//
+//	@Before("execution(* com.cart.api.service.*.*(..))")
+//	public void logsAroundAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
+//		long startTime = System.currentTimeMillis();
+//
+//		// Logging method name and parameters
+//		String methodName = joinPoint.getSignature().getName();
+//		Object[] methodArgs = joinPoint.getArgs();
+//		System.out.println(
+//				"[Cart Service] Entering method: " + methodName + " | Args: " + java.util.Arrays.toString(methodArgs));
+//
+//		Object result;
+//		try {
+//			result = joinPoint.proceed(); // Proceed with method execution
+//		} catch (Exception e) {
+//			System.err.println("[Cart Service] Exception in method: " + methodName + " | Error: " + e.getMessage());
+//			throw e;
+//		}
+//
+//		long endTime = System.currentTimeMillis();
+//		System.out.println("[Cart Service] Exiting method: " + methodName + " | Execution Time: "
+//				+ (endTime - startTime) + "ms | Response: " + result);
+//
+//	}
+
+//	@AfterReturning(value = "execution(* com.cart.api.service.*.*(..))", returning = "result")
+//	public void logsAfterReturningDisplay(JoinPoint joinPoint, Object result) {
+//		String methodName = joinPoint.getSignature().getName();
+//		System.out.println(" [Cart Service] Successfully executed: " + methodName + " | Returned: " + result);
+//	}
+//
+//	@AfterThrowing(value = "execution(* com.cart.api.service.*.*(..))", throwing = "ex")
+//	public void logsAfterThrowingDisplay(JoinPoint joinPoint, Exception ex) {
+//		String methodName = joinPoint.getSignature().getName();
+//		Object[] methodArgs = joinPoint.getArgs();
+//
+//		System.err.println(" [Cart Service] Exception in method: " + methodName);
+//		System.err.println(" Arguments: " + java.util.Arrays.toString(methodArgs));
+//		System.err.println(" Exception Message: " + ex.getMessage());
+//	}
+	
+	
+
+
+	
+
+	    @Pointcut("execution(* com.cart.api.service.CartService.*(..))")
+	    public void cartServiceMethods() {}
+
+	    @Around("cartServiceMethods()")
+	    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+	        long startTime = System.currentTimeMillis();
+	        String methodName = joinPoint.getSignature().getName();
+	        Object[] methodArgs = joinPoint.getArgs();
+	        
+	        System.out.println("[CartService] Entering method: " + methodName + " | Args: " + java.util.Arrays.toString(methodArgs));
+
+	        Object result;
+	        try {
+	            result = joinPoint.proceed();
+	        } catch (Exception e) {
+	            System.err.println("[CartService] Exception in method: " + methodName + " | Error: " + e.getMessage());
+	            throw e;
+	        }
+
+	        long endTime = System.currentTimeMillis();
+	        System.out.println("[CartService] Exiting method: " + methodName + " | Execution Time: " + (endTime - startTime) + "ms | Response: " + result);
+
+	        return result;
+	    }
+	    
+	    
+	    @Before("execution(* com.cart.api.service.CartService.getCart(..))")
+	    public void logBeforeGetCart(JoinPoint joinPoint) {
+	        Long userId = (Long) joinPoint.getArgs()[0];
+	        System.out.println("[Cart Service] Request to fetch cart for user ID: " + userId);
+	    }
+
+}

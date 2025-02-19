@@ -1,0 +1,9 @@
+package com.poc.product.jwt;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class JwtAuthenticationFilter {
+
+	@Autowired
+	private JwtService jwtService;
+}

@@ -1,0 +1,17 @@
+spring.application.name=auth-service
+
+
+server.port=8084
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.instance.hostname=localhost
+
+
+
+spring.boot.admin.client.url=http://localhost:9090
+spring.boot.admin.client.instance.management-base-url=http://localhost:8084
+spring.boot.admin.client.username=admin
+spring.boot.admin.client.password=admin
+management.security.enabled=false
+security.basic.enabled=false
+

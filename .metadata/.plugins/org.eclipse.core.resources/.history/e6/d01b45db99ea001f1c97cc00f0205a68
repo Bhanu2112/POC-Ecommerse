@@ -1,0 +1,5 @@
+package com.cart.api.entity;
+
+public class CartItem {
+
+}
